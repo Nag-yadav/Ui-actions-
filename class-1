@@ -1,0 +1,21 @@
+1. Need to create a child incident under the incident, also set priority to '1':-
+
+
+function priority() {
+    g_form.setValue('impact', 1);
+    g_form.setValue('urgency', 1);
+    gsftSubmit(null, g_form.getFormElement(), 'create_child_inc');
+}
+if (typeof window == 'undefined')
+    childinc()
+
+function childinc() {
+
+    var gr = new GlideRecord('incident');
+    gr.initialize();
+    gr.parent_incident = current.sys_id;
+    gr.short_description = current.short_description;
+    gr.insert();
+    action.setRedirectURL(current);
+	current.update();
+}
