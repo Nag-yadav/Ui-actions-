@@ -1,1 +1,54 @@
 1.Create a button named as "set p1", once it is clicked change the state to priority 1
+
+ function priority() {
+     g_form.setValue('impact', 1);
+     g_form.setValue('urgency', 1); // Save the change
+     action.setRedirectURL(current); // Reloads the record after update
+ }
+
+----------------------------------------------------------------------------------------------------------------------
+2.Create button name is “Assigned to Me” and the functionality is that when you click on the assigned to button then then logged in user name should get populated in “Assigned To”  available in the incident form.
+
+function assign() {
+
+    g_form.setValue('assigned_to', g_user.userID);
+
+
+    action.setRedirectURL(current); // Reload the record with the new assignment
+
+}
+
+------------------------------------------------------------------------------------------------------------------------
+3.Create a button named as contact on clicking it, change the contact type to self-service and state to on hold.
+
+function contact(){
+	g_form.setValue('contact_type','self-service');
+	g_form.setValue('state',3);
+	action.setRedirectURL(current);
+	current.update();
+}
+
+-----------------------------------------------------------------------------------------------------------------
+4.Create Button with 'watch list' populate the watch list field with caller id on clicking the button.
+
+function watch() {
+    var caller = g_form.getValue('caller_id');
+    var watchlist = g_form.getValue('watch_list');
+
+    // Add caller only if not already in watch list
+    if (watchlist.indexOf(caller) == -1) {
+        if (watchlist)
+            g_form.setValue('watch_list', watchlist + ',' + caller);
+        else
+            g_form.setValue('watch_list', caller);
+
+        alert('Caller added to Watch list!');
+    } else {
+        alert('Caller is already in Watch list.');
+    }
+}
+--------------------------------------------------------------------------------------------------------------
+5.If the category is inquiry and sub category is antivirus show information message 
+("Please select anti-virus type in field") and show antivirus type field to fill with mandatory.
+
+
